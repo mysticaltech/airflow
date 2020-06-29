@@ -45,10 +45,14 @@ MAX_LABEL_LEN = 63
 MAX_POD_ID_LEN = 253
 
 
-class PodDefaults:
+class PodDefaults(object):
     """
     Static defaults for the PodGenerator
     """
+
+    def __init__(self):
+        pass
+
     XCOM_MOUNT_PATH = '/airflow/xcom'
     SIDECAR_CONTAINER_NAME = 'airflow-xcom-sidecar'
     XCOM_CMD = 'trap "exit 0" INT; while true; do sleep 30; done;'
@@ -92,7 +96,7 @@ def make_safe_label_value(string):
     return safe_label
 
 
-class PodGenerator:
+class PodGenerator(object):
     """
     Contains Kubernetes Airflow Worker configuration logic
 
