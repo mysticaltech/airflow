@@ -24,7 +24,11 @@ is supported and no serialization need be written.
 import copy
 import hashlib
 import re
-import inspect
+try:
+    from inspect import signature
+except ImportError:
+    # Python 2.7
+    from funcsigs import signature  # type: ignore
 import os
 import uuid
 from functools import reduce
@@ -516,7 +520,7 @@ class PodGenerator:
         Validate that if `pod` or `pod_template_file` are set that the user is not attempting
         to configure the pod with the other arguments.
         """
-        pod_args = list(inspect.signature(PodGenerator).parameters.items())
+        pod_args = list(signature(PodGenerator).parameters.items())
 
         def predicate(k, v):
             """
